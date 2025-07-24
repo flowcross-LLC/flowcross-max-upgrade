@@ -6,50 +6,50 @@
 
 @layer base {
   :root {
-    /* Темная игровая тема с фиолетовыми акцентами */
-    --background: 222 22% 8%;
-    --foreground: 285 100% 95%;
+    /* Черно-белая тема с серыми акцентами */
+    --background: 0 0% 3%;
+    --foreground: 0 0% 98%;
 
-    --card: 222 20% 12%;
-    --card-foreground: 285 100% 95%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 95%;
 
-    --popover: 222 20% 10%;
-    --popover-foreground: 285 100% 95%;
+    --popover: 0 0% 6%;
+    --popover-foreground: 0 0% 95%;
 
-    /* Основные фиолетовые цвета FlowCross */
-    --primary: 280 100% 60%;
-    --primary-foreground: 222 22% 8%;
-    --primary-glow: 285 100% 70%;
+    /* Основные черно-белые цвета FlowCross */
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --primary-glow: 0 0% 90%;
 
-    --secondary: 240 15% 20%;
-    --secondary-foreground: 285 100% 95%;
+    --secondary: 0 0% 20%;
+    --secondary-foreground: 0 0% 95%;
 
-    --muted: 222 15% 15%;
-    --muted-foreground: 240 10% 60%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
 
-    --accent: 280 100% 55%;
-    --accent-foreground: 222 22% 8%;
+    --accent: 0 0% 85%;
+    --accent-foreground: 0 0% 9%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 240 15% 20%;
-    --input: 240 15% 18%;
-    --ring: 280 100% 60%;
+    --border: 0 0% 20%;
+    --input: 0 0% 18%;
+    --ring: 0 0% 60%;
 
     /* Градиенты */
-    --gradient-primary: linear-gradient(135deg, hsl(280 100% 60%), hsl(285 100% 70%));
-    --gradient-secondary: linear-gradient(135deg, hsl(240 15% 20%), hsl(222 15% 15%));
-    --gradient-hero: linear-gradient(135deg, hsl(222 22% 8%) 0%, hsl(240 15% 12%) 50%, hsl(280 30% 15%) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(0 0% 98%), hsl(0 0% 90%));
+    --gradient-secondary: linear-gradient(135deg, hsl(0 0% 20%), hsl(0 0% 15%));
+    --gradient-hero: linear-gradient(135deg, hsl(0 0% 3%) 0%, hsl(0 0% 8%) 50%, hsl(0 0% 12%) 100%);
     
-    /* Неоновые эффекты */
-    --neon-purple: 0 0 20px hsl(280 100% 60% / 0.5), 0 0 40px hsl(280 100% 60% / 0.3);
-    --neon-pink: 0 0 20px hsl(320 100% 60% / 0.5), 0 0 40px hsl(320 100% 60% / 0.3);
+    /* Белые эффекты */
+    --neon-white: 0 0 20px hsl(0 0% 100% / 0.3), 0 0 40px hsl(0 0% 100% / 0.1);
+    --neon-gray: 0 0 20px hsl(0 0% 70% / 0.3), 0 0 40px hsl(0 0% 70% / 0.1);
     
     /* Тени */
-    --shadow-glow: 0 0 30px hsl(280 100% 60% / 0.3);
-    --shadow-card: 0 8px 32px hsl(222 22% 8% / 0.8);
-    --shadow-floating: 0 16px 64px hsl(280 100% 60% / 0.2);
+    --shadow-glow: 0 0 30px hsl(0 0% 100% / 0.2);
+    --shadow-card: 0 8px 32px hsl(0 0% 0% / 0.8);
+    --shadow-floating: 0 16px 64px hsl(0 0% 100% / 0.1);
 
     --radius: 0.75rem;
 
@@ -71,12 +71,12 @@
   }
 
   .dark {
-    /* Более интенсивная темная тема для геймеров */
-    --background: 220 25% 4%;
-    --foreground: 285 100% 98%;
+    /* Более интенсивная черно-белая тема */
+    --background: 0 0% 2%;
+    --foreground: 0 0% 98%;
     
-    --gradient-hero: linear-gradient(135deg, hsl(220 25% 4%) 0%, hsl(240 20% 8%) 50%, hsl(280 40% 12%) 100%);
-    --neon-purple: 0 0 30px hsl(280 100% 70% / 0.8), 0 0 60px hsl(280 100% 70% / 0.4);
+    --gradient-hero: linear-gradient(135deg, hsl(0 0% 2%) 0%, hsl(0 0% 6%) 50%, hsl(0 0% 10%) 100%);
+    --neon-white: 0 0 30px hsl(0 0% 100% / 0.4), 0 0 60px hsl(0 0% 100% / 0.2);
     
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
@@ -108,11 +108,11 @@
 @layer utilities {
   /* Неоновые эффекты */
   .neon-glow {
-    box-shadow: var(--neon-purple);
+    box-shadow: var(--neon-white);
   }
   
   .neon-text {
-    text-shadow: var(--neon-purple);
+    text-shadow: var(--neon-white);
   }
   
   .floating-glow {

@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Search, Menu, X, Download, LogIn, User, Settings, LogOut } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import FeaturesBlock from "@/components/FeaturesBlock";
 
 const FlowCrossNavbar = () => {
   const { toast } = useToast();
@@ -89,21 +90,48 @@ const FlowCrossNavbar = () => {
                 <DialogTrigger asChild>
                   <Button variant="outline" size="sm"><LogIn className="w-4 h-4 mr-2" />Log In</Button>
                 </DialogTrigger>
-                <DialogContent className="glass-effect">
+                <DialogContent className="glass-effect max-w-4xl">
                   <DialogHeader>
-                    <DialogTitle>Вход в FlowCross</DialogTitle>
+                    <DialogTitle>Добро пожаловать в FlowCross</DialogTitle>
                   </DialogHeader>
-                  <form onSubmit={handleLogin} className="space-y-4">
-                    <div>
-                      <Label htmlFor="username">Имя пользователя</Label>
-                      <Input id="username" value={loginData.username} onChange={(e) => setLoginData({...loginData, username: e.target.value})} placeholder="Введите имя пользователя" />
+                  <div className="flex gap-6">
+                    {/* Features Block */}
+                    <div className="flex-1">
+                      <FeaturesBlock />
                     </div>
-                    <div>
-                      <Label htmlFor="password">Пароль</Label>
-                      <Input id="password" type="password" value={loginData.password} onChange={(e) => setLoginData({...loginData, password: e.target.value})} placeholder="Введите пароль" />
+                    
+                    {/* Login Form */}
+                    <div className="flex-1">
+                      <div className="glass-effect rounded-xl p-6">
+                        <h3 className="text-xl font-bold mb-4 text-center">Вход в аккаунт</h3>
+                        <form onSubmit={handleLogin} className="space-y-4">
+                          <div>
+                            <Label htmlFor="username">Имя пользователя</Label>
+                            <Input 
+                              id="username" 
+                              value={loginData.username} 
+                              onChange={(e) => setLoginData({...loginData, username: e.target.value})} 
+                              placeholder="Введите имя пользователя" 
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="password">Пароль</Label>
+                            <Input 
+                              id="password" 
+                              type="password" 
+                              value={loginData.password} 
+                              onChange={(e) => setLoginData({...loginData, password: e.target.value})} 
+                              placeholder="Введите пароль" 
+                            />
+                          </div>
+                          <Button type="submit" variant="default" className="w-full">Войти</Button>
+                          <div className="text-center text-sm text-muted-foreground">
+                            Нет аккаунта? Используйте кнопку "Регистрация" слева
+                          </div>
+                        </form>
+                      </div>
                     </div>
-                    <Button type="submit" variant="glow" className="w-full">Войти</Button>
-                  </form>
+                  </div>
                 </DialogContent>
               </Dialog>
             )}

@@ -5,6 +5,7 @@ import FlowCrossStats from "@/components/FlowCrossStats";
 import FlowCrossTestimonials from "@/components/FlowCrossTestimonials";
 import AdvancedFeatures from "@/components/AdvancedFeatures";
 import FlowCrossPricing from "@/components/FlowCrossPricing";
+import DownloadSection from "@/components/DownloadSection";
 import FlowCrossFooter from "@/components/FlowCrossFooter";
 import ParticleBackground from "@/components/ParticleBackground";
 import ScrollProgress from "@/components/ScrollProgress";
@@ -23,6 +24,7 @@ const Index = () => {
         <FlowCrossTestimonials />
         <AdvancedFeatures />
         <FlowCrossPricing />
+        <DownloadSection />
       </main>
       <FlowCrossFooter />
       <FloatingActionButton />
