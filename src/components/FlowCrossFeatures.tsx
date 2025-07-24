@@ -1,12 +1,16 @@
+import { useState } from "react";
 import { Zap, Palette, Shield, Cloud, Gamepad2, Cpu, Download, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 const FlowCrossFeatures = () => {
+  const [selectedFeature, setSelectedFeature] = useState<any>(null);
   const features = [
     {
       icon: Zap,
       title: "Молниеносная скорость",
       description: "Оптимизированное время запуска и минимальное использование ресурсов. Попадайте в игру быстрее, чем когда-либо.",
+      details: "FlowCross использует революционную технологию кэширования и предзагрузки модов. Наш движок на 300% быстрее конкурентов благодаря оптимизации на уровне JVM и умному управлению памятью.",
       color: "text-yellow-400",
       bgColor: "from-yellow-400/20 to-orange-500/20"
     },
@@ -94,7 +98,12 @@ const FlowCrossFeatures = () => {
                 </div>
                 <h3 className="text-xl font-bold mb-4 text-foreground">{feature.title}</h3>
                 <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
-                <Button variant="ghost" size="sm" className="mt-4 text-primary hover:text-primary-foreground">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="mt-4 text-primary hover:text-primary-foreground"
+                  onClick={() => setSelectedFeature(feature)}
+                >
                   Узнать больше →
                 </Button>
               </div>
@@ -134,6 +143,27 @@ const FlowCrossFeatures = () => {
             </Button>
           </div>
         </div>
+
+        {/* Feature Details Modal */}
+        <Dialog open={!!selectedFeature} onOpenChange={() => setSelectedFeature(null)}>
+          <DialogContent className="glass-effect max-w-2xl">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-3">
+                {selectedFeature?.icon && <selectedFeature.icon className={`w-8 h-8 ${selectedFeature.color}`} />}
+                {selectedFeature?.title}
+              </DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4">
+              <p className="text-foreground">{selectedFeature?.description}</p>
+              <p className="text-muted-foreground">{selectedFeature?.details}</p>
+              <div className="pt-4">
+                <Button variant="glow" onClick={() => setSelectedFeature(null)}>
+                  Понятно, круто! 🚀
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </section>
   );
