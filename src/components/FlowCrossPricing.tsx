@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { Check, Crown, Rocket, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SubscriptionHandler from "@/components/SubscriptionHandler";
 import CompareFeatures from "@/components/CompareFeatures";
 
 const FlowCrossPricing = () => {
+  const [billingPeriod, setBillingPeriod] = useState<"monthly" | "yearly">("monthly");
+
   const plans = [
     {
       name: "Flow Basic",
@@ -25,9 +28,10 @@ const FlowCrossPricing = () => {
     {
       name: "Flow+",
       description: "Расширенный опыт для регулярных игроков",
-      price: "$4.99",
-      period: "/месяц",
-      yearlyPrice: "$59.88 в год",
+      monthlyPrice: "$4.99",
+      yearlyPrice: "$49.99",
+      monthlyPeriod: "/месяц",
+      yearlyPeriod: "/год",
       icon: Crown,
       popular: true,
       features: [
@@ -43,8 +47,10 @@ const FlowCrossPricing = () => {
     {
       name: "Flow v4",
       description: "Полный пакет для продвинутых пользователей",
-      price: "$9.99",
-      period: "/месяц",
+      monthlyPrice: "$9.99",
+      yearlyPrice: "$99.99",
+      monthlyPeriod: "/месяц",
+      yearlyPeriod: "/год",
       icon: Rocket,
       popular: false,
       features: [
@@ -75,9 +81,38 @@ const FlowCrossPricing = () => {
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Выберите свою <span className="neon-text text-primary">версию</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
             Найдите идеальный план для вашего стиля игры
           </p>
+          
+          {/* Billing Period Toggle */}
+          <div className="flex justify-center mb-8">
+            <div className="bg-muted/20 p-1 rounded-lg flex">
+              <button
+                onClick={() => setBillingPeriod("monthly")}
+                className={`px-6 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
+                  billingPeriod === "monthly"
+                    ? "bg-primary text-primary-foreground shadow-sm"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                Ежемесячно
+              </button>
+              <button
+                onClick={() => setBillingPeriod("yearly")}
+                className={`px-6 py-2 rounded-md text-sm font-medium transition-all duration-300 relative ${
+                  billingPeriod === "yearly"
+                    ? "bg-primary text-primary-foreground shadow-sm"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                Ежегодно
+                <span className="absolute -top-2 -right-2 bg-green-500 text-white text-xs px-1.5 py-0.5 rounded-full">
+                  -20%
+                </span>
+              </button>
+            </div>
+          </div>
         </div>
 
         {/* Pricing Cards */}
@@ -121,11 +156,19 @@ const FlowCrossPricing = () => {
                 {/* Price */}
                 <div className="mb-6">
                   <div className="flex items-baseline">
-                    <span className="text-4xl font-bold text-foreground">{plan.price}</span>
-                    <span className="text-muted-foreground ml-1">{plan.period}</span>
+                    <span className="text-4xl font-bold text-foreground transition-all duration-500 animate-fade-in">
+                      {plan.name === "Flow Basic" ? plan.price : 
+                       billingPeriod === "monthly" ? plan.monthlyPrice : plan.yearlyPrice}
+                    </span>
+                    <span className="text-muted-foreground ml-1">
+                      {plan.name === "Flow Basic" ? plan.period : 
+                       billingPeriod === "monthly" ? plan.monthlyPeriod : plan.yearlyPeriod}
+                    </span>
                   </div>
-                  {plan.yearlyPrice && (
-                    <p className="text-sm text-muted-foreground mt-1">{plan.yearlyPrice}</p>
+                  {billingPeriod === "yearly" && plan.name !== "Flow Basic" && (
+                    <p className="text-sm text-green-400 mt-1">
+                      Экономия {plan.name === "Flow+" ? "$9.89" : "$19.89"} в год
+                    </p>
                   )}
                 </div>
 
@@ -142,7 +185,11 @@ const FlowCrossPricing = () => {
                 {/* CTA Button */}
                 <SubscriptionHandler
                   planName={plan.name}
-                  planPrice={plan.price + plan.period}
+                  planPrice={plan.name === "Flow Basic" ? 
+                    plan.price + plan.period : 
+                    (billingPeriod === "monthly" ? 
+                      plan.monthlyPrice + plan.monthlyPeriod : 
+                      plan.yearlyPrice + plan.yearlyPeriod)}
                   planFeatures={plan.features}
                   buttonText={plan.buttonText}
                   variant={plan.buttonVariant}

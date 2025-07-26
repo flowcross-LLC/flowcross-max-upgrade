@@ -5,10 +5,11 @@ import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { User, Mail, Shield, Check, Upload, LogOut, Edit2, ArrowLeft } from "lucide-react";
+import { User, Mail, Shield, Check, Upload, LogOut, Edit2, ArrowLeft, Palette } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import AdvancedAccountFeatures from "@/components/AdvancedAccountFeatures";
+import ThemeSelector from "@/components/ThemeSelector";
 import flowcrossLogo from "@/assets/flowcross-logo.png";
 
 interface UserData {
@@ -26,6 +27,7 @@ interface UserData {
   };
   preferences?: {
     background?: string;
+    theme?: string;
   };
 }
 
@@ -35,6 +37,7 @@ const AccountPage = () => {
   const [userData, setUserData] = useState<UserData | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState({ username: "", email: "" });
+  const [currentTheme, setCurrentTheme] = useState("default");
 
   useEffect(() => {
     const stored = localStorage.getItem("flowcross_user");
@@ -42,6 +45,7 @@ const AccountPage = () => {
       const data = JSON.parse(stored);
       setUserData(data);
       setEditData({ username: data.username, email: data.email || "" });
+      setCurrentTheme(data.preferences?.theme || "default");
     }
   }, []);
 
@@ -121,6 +125,20 @@ const AccountPage = () => {
     localStorage.setItem("flowcross_user", JSON.stringify(updates));
   };
 
+  const handleThemeChange = (themeId: string) => {
+    setCurrentTheme(themeId);
+    if (userData) {
+      const updatedData = {
+        ...userData,
+        preferences: {
+          ...userData.preferences,
+          theme: themeId
+        }
+      };
+      handleUpdateUserData(updatedData);
+    }
+  };
+
   if (!userData) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -156,7 +174,7 @@ const AccountPage = () => {
         </div>
 
         <div className="space-y-6">
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid lg:grid-cols-4 md:grid-cols-3 gap-6">
             {/* Profile Card */}
             <Card className="glass-effect">
               <CardHeader>
@@ -219,8 +237,24 @@ const AccountPage = () => {
               </CardContent>
             </Card>
 
+            {/* Theme Selector */}
+            <Card className="glass-effect">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Palette className="w-5 h-5" />
+                  Темы
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ThemeSelector 
+                  currentTheme={currentTheme}
+                  onThemeChange={handleThemeChange}
+                />
+              </CardContent>
+            </Card>
+
             {/* Account Settings */}
-            <Card className="glass-effect md:col-span-2">
+            <Card className="glass-effect lg:col-span-2">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Shield className="w-5 h-5" />

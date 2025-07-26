@@ -10,6 +10,7 @@ import FeaturesBlock from "@/components/FeaturesBlock";
 import PhoneVerification from "@/components/PhoneVerification";
 import SearchComponent from "@/components/SearchComponent";
 import RegistrationSystem from "@/components/RegistrationSystem";
+import RegistrationAdvantages from "@/components/RegistrationAdvantages";
 import flowcrossLogo from "@/assets/flowcross-logo.png";
 
 const FlowCrossNavbar = () => {
@@ -118,7 +119,12 @@ const FlowCrossNavbar = () => {
                     <DialogTitle>Добро пожаловать в FlowCross</DialogTitle>
                   </DialogHeader>
                   <div className="flex gap-6">
-                    {/* Registration and Features */}
+                    {/* Advantages - Left Side */}
+                    <div className="flex-1">
+                      <RegistrationAdvantages />
+                    </div>
+                    
+                    {/* Registration and Login - Right Side */}
                     <div className="flex-1 space-y-6">
                       <RegistrationSystem 
                         onRegistrationComplete={(userData) => {
@@ -128,14 +134,7 @@ const FlowCrossNavbar = () => {
                           });
                         }}
                       />
-                      <div className="glass-effect rounded-xl p-4">
-                        <img src={flowcrossLogo} alt="FlowCross" className="w-16 h-16 mx-auto mb-4 rounded-xl" />
-                        <FeaturesBlock />
-                      </div>
-                    </div>
-                    
-                    {/* Login Form with Phone Verification */}
-                    <div className="flex-1 space-y-6">
+                      
                       <div className="glass-effect rounded-xl p-6">
                         <h3 className="text-xl font-bold mb-4 text-center">Вход в аккаунт</h3>
                         <form onSubmit={handleLogin} className="space-y-4">
@@ -167,7 +166,6 @@ const FlowCrossNavbar = () => {
                         </form>
                       </div>
                       
-                      {/* Phone Verification */}
                       <PhoneVerification 
                         onVerificationComplete={(phone) => {
                           toast({
