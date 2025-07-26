@@ -114,18 +114,18 @@ const FlowCrossNavbar = () => {
                 <DialogTrigger asChild>
                   <Button variant="outline" size="sm"><LogIn className="w-4 h-4 mr-2" />Log In</Button>
                 </DialogTrigger>
-                <DialogContent className="glass-effect max-w-4xl">
+                <DialogContent className="glass-effect max-w-7xl">
                   <DialogHeader>
                     <DialogTitle>Добро пожаловать в FlowCross</DialogTitle>
                   </DialogHeader>
-                  <div className="flex gap-6">
-                    {/* Advantages - Left Side */}
-                    <div className="flex-1">
+                  <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                    {/* Преимущества */}
+                    <div className="lg:col-span-1">
                       <RegistrationAdvantages />
                     </div>
                     
-                    {/* Registration and Login - Right Side */}
-                    <div className="flex-1 space-y-6">
+                    {/* Регистрация */}
+                    <div className="lg:col-span-1">
                       <RegistrationSystem 
                         onRegistrationComplete={(userData) => {
                           toast({
@@ -134,8 +134,11 @@ const FlowCrossNavbar = () => {
                           });
                         }}
                       />
-                      
-                      <div className="glass-effect rounded-xl p-6">
+                    </div>
+                    
+                    {/* Логин */}
+                    <div className="lg:col-span-1">
+                      <div className="glass-effect rounded-xl p-6 h-fit">
                         <h3 className="text-xl font-bold mb-4 text-center">Вход в аккаунт</h3>
                         <form onSubmit={handleLogin} className="space-y-4">
                           <div>
@@ -161,11 +164,14 @@ const FlowCrossNavbar = () => {
                           </div>
                           <Button type="submit" variant="default" className="w-full bg-white text-black hover:bg-white/90">Войти</Button>
                           <div className="text-center text-sm text-muted-foreground">
-                            Сначала зарегистрируйтесь слева
+                            Зарегистрируйтесь слева
                           </div>
                         </form>
                       </div>
-                      
+                    </div>
+                    
+                    {/* Верификация телефона */}
+                    <div className="lg:col-span-1">
                       <PhoneVerification 
                         onVerificationComplete={(phone) => {
                           toast({
