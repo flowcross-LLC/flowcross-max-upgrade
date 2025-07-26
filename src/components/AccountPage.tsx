@@ -32,23 +32,24 @@ const AccountPage = () => {
   }, []);
 
   const handleAvatarChange = () => {
-    // Создаем простой аватар с первой буквой имени
-    const firstLetter = userData?.username.charAt(0).toUpperCase() || "U";
-    const colors = ["#FF6B6B", "#4ECDC4", "#45B7D1", "#96CEB4", "#FFEAA7", "#DDA0DD"];
-    const randomColor = colors[Math.floor(Math.random() * colors.length)];
-    
+    // Создаем белый треугольник как аватар
     const canvas = document.createElement('canvas');
     canvas.width = 100;
     canvas.height = 100;
     const ctx = canvas.getContext('2d');
     
     if (ctx) {
-      ctx.fillStyle = randomColor;
-      ctx.fillRect(0, 0, 100, 100);
+      // Прозрачный фон
+      ctx.clearRect(0, 0, 100, 100);
+      
+      // Рисуем белый треугольник
       ctx.fillStyle = '#FFFFFF';
-      ctx.font = 'bold 48px Arial';
-      ctx.textAlign = 'center';
-      ctx.fillText(firstLetter, 50, 65);
+      ctx.beginPath();
+      ctx.moveTo(50, 20); // верхняя точка
+      ctx.lineTo(20, 80); // левая нижняя точка
+      ctx.lineTo(80, 80); // правая нижняя точка
+      ctx.closePath();
+      ctx.fill();
       
       const avatarUrl = canvas.toDataURL();
       

@@ -171,14 +171,10 @@ const FlowCrossFooter = () => {
 
           {/* Contact Info */}
           <div className="mt-12 pt-8 border-t border-border">
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 gap-6">
               <div className="flex items-center space-x-3">
                 <MapPin className="w-5 h-5 text-primary" />
-                <span className="text-muted-foreground">Москва, Россия</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <Phone className="w-5 h-5 text-primary" />
-                <span className="text-muted-foreground">+7 (999) 123-45-67</span>
+                <span className="text-muted-foreground">Кишинёв, Молдова</span>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="w-5 h-5 text-primary" />

@@ -168,7 +168,8 @@ const AdvancedFeatures = () => {
             <span className="neon-text text-primary">Продвинутые</span> возможности
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Демонстрация современных Web API и HTML5 возможностей
+            Демонстрация современных Web API и HTML5 возможностей.<br />
+            <span className="text-primary font-medium">Эти функции доступны в лаунчере</span>
           </p>
         </div>
 

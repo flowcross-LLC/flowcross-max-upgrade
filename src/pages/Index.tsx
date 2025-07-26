@@ -2,7 +2,7 @@ import FlowCrossNavbar from "@/components/FlowCrossNavbar";
 import FlowCrossHero from "@/components/FlowCrossHero";
 import FlowCrossFeatures from "@/components/FlowCrossFeatures";
 import FlowCrossStats from "@/components/FlowCrossStats";
-import FlowCrossTestimonials from "@/components/FlowCrossTestimonials";
+import InteractiveShowcase from "@/components/InteractiveShowcase";
 import AdvancedFeatures from "@/components/AdvancedFeatures";
 import FlowCrossPricing from "@/components/FlowCrossPricing";
 import DownloadSection from "@/components/DownloadSection";
@@ -21,7 +21,7 @@ const Index = () => {
         <FlowCrossHero />
         <FlowCrossFeatures />
         <FlowCrossStats />
-        <FlowCrossTestimonials />
+        <InteractiveShowcase />
         <AdvancedFeatures />
         <FlowCrossPricing />
         <DownloadSection />

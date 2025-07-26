@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Search, Menu, X, Download, LogIn, User, Settings, LogOut } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import FeaturesBlock from "@/components/FeaturesBlock";
+import PhoneVerification from "@/components/PhoneVerification";
 
 const FlowCrossNavbar = () => {
   const { toast } = useToast();
@@ -80,7 +81,6 @@ const FlowCrossNavbar = () => {
             
             {isLoggedIn ? (
               <div className="flex items-center space-x-2">
-                <span className="text-sm text-foreground">Привет, {username}!</span>
                 <Button variant="outline" size="sm" onClick={() => window.location.href = "/account"}>
                   <Settings className="w-4 h-4 mr-2" />Аккаунт
                 </Button>
@@ -103,8 +103,8 @@ const FlowCrossNavbar = () => {
                       <FeaturesBlock />
                     </div>
                     
-                    {/* Login Form */}
-                    <div className="flex-1">
+                    {/* Login Form with Phone Verification */}
+                    <div className="flex-1 space-y-6">
                       <div className="glass-effect rounded-xl p-6">
                         <h3 className="text-xl font-bold mb-4 text-center">Вход в аккаунт</h3>
                         <form onSubmit={handleLogin} className="space-y-4">
@@ -133,6 +133,16 @@ const FlowCrossNavbar = () => {
                           </div>
                         </form>
                       </div>
+                      
+                      {/* Phone Verification */}
+                      <PhoneVerification 
+                        onVerificationComplete={(phone) => {
+                          toast({
+                            title: "Телефон подтвержден!",
+                            description: `Номер ${phone} успешно верифицирован`
+                          });
+                        }}
+                      />
                     </div>
                   </div>
                 </DialogContent>
