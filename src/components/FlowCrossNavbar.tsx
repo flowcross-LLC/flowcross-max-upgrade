@@ -81,6 +81,9 @@ const FlowCrossNavbar = () => {
             {isLoggedIn ? (
               <div className="flex items-center space-x-2">
                 <span className="text-sm text-foreground">Привет, {username}!</span>
+                <Button variant="outline" size="sm" onClick={() => window.location.href = "/account"}>
+                  <Settings className="w-4 h-4 mr-2" />Аккаунт
+                </Button>
                 <Button variant="outline" size="sm" onClick={handleLogout}>
                   <LogOut className="w-4 h-4 mr-2" />Выйти
                 </Button>

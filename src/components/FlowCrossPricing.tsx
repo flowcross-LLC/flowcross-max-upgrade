@@ -1,5 +1,7 @@
 import { Check, Crown, Rocket, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import SubscriptionHandler from "@/components/SubscriptionHandler";
+import CompareFeatures from "@/components/CompareFeatures";
 
 const FlowCrossPricing = () => {
   const plans = [
@@ -138,13 +140,13 @@ const FlowCrossPricing = () => {
                 </ul>
 
                 {/* CTA Button */}
-                <Button
+                <SubscriptionHandler
+                  planName={plan.name}
+                  planPrice={plan.price + plan.period}
+                  planFeatures={plan.features}
+                  buttonText={plan.buttonText}
                   variant={plan.buttonVariant}
-                  size="lg"
-                  className="w-full"
-                >
-                  {plan.buttonText}
-                </Button>
+                />
               </div>
             </div>
           ))}
@@ -163,9 +165,7 @@ const FlowCrossPricing = () => {
               <Button variant="premium" size="lg">
                 Скачать сейчас
               </Button>
-              <Button variant="outline" size="lg">
-                Узнать больше
-              </Button>
+              <CompareFeatures />
             </div>
           </div>
         </div>
