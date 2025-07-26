@@ -92,6 +92,7 @@ const AccountPage = () => {
           currentSection={currentSection}
           onSectionChange={setCurrentSection}
           onLogout={handleLogout}
+          userData={userData}
         />
         
         <div className="flex-1 flex flex-col">
