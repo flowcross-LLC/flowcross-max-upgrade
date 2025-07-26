@@ -342,4 +342,14 @@
   .hero-title {
     animation: var(--hero-float), var(--hero-glow);
   }
+
+  /* Скрытие скроллбара */
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE и Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari и Opera */
+  }
 }
