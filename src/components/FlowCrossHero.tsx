@@ -36,10 +36,15 @@ const FlowCrossHero = () => {
 
           {/* Title */}
           <h1 className="text-5xl md:text-7xl font-bold leading-tight">
-            <span className="neon-text bg-gradient-to-r from-primary via-pink-500 to-accent bg-clip-text text-transparent">
+            <span className="hero-title neon-text bg-gradient-to-r from-primary via-pink-500 to-accent bg-clip-text text-transparent">
               Flowcross
             </span>
           </h1>
+
+          {/* Animated Subtitle */}
+          <div className="typewriter text-lg md:text-xl text-primary font-mono">
+            &gt; Современный игровой лаунчер
+          </div>
 
           {/* Subtitle */}
           <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">

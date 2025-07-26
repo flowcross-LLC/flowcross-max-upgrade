@@ -8,6 +8,9 @@ import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import FeaturesBlock from "@/components/FeaturesBlock";
 import PhoneVerification from "@/components/PhoneVerification";
+import SearchComponent from "@/components/SearchComponent";
+import RegistrationSystem from "@/components/RegistrationSystem";
+import flowcrossLogo from "@/assets/flowcross-logo.png";
 
 const FlowCrossNavbar = () => {
   const { toast } = useToast();
@@ -37,12 +40,31 @@ const FlowCrossNavbar = () => {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (loginData.username && loginData.password) {
-      const userData = { username: loginData.username, loginTime: Date.now() };
-      localStorage.setItem("flowcross_user", JSON.stringify(userData));
-      setIsLoggedIn(true);
-      setUsername(loginData.username);
-      setIsLoginOpen(false);
-      toast({ title: "Успешный вход!", description: `Добро пожаловать, ${loginData.username}!` });
+      // Проверяем зарегистрированных пользователей
+      const registeredUsers = JSON.parse(localStorage.getItem("flowcross_registered_users") || "[]");
+      const user = registeredUsers.find((u: any) => 
+        u.username === loginData.username && u.password === loginData.password
+      );
+
+      if (user) {
+        const userData = { 
+          username: loginData.username, 
+          email: user.email,
+          loginTime: Date.now() 
+        };
+        localStorage.setItem("flowcross_user", JSON.stringify(userData));
+        setIsLoggedIn(true);
+        setUsername(loginData.username);
+        setIsLoginOpen(false);
+        setLoginData({ username: "", password: "" });
+        toast({ title: "Успешный вход!", description: `Добро пожаловать, ${loginData.username}!` });
+      } else {
+        toast({ 
+          title: "Ошибка входа", 
+          description: "Неверное имя пользователя или пароль. Сначала зарегистрируйтесь.",
+          variant: "destructive"
+        });
+      }
     }
   };
 
@@ -50,6 +72,7 @@ const FlowCrossNavbar = () => {
     localStorage.removeItem("flowcross_user");
     setIsLoggedIn(false);
     setUsername("");
+    navigate("/");
     toast({ title: "Выход выполнен", description: "До свидания!" });
   };
 
@@ -58,9 +81,7 @@ const FlowCrossNavbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-r from-primary to-accent rounded-md flex items-center justify-center">
-              <span className="text-white font-bold text-lg">F</span>
-            </div>
+            <img src={flowcrossLogo} alt="FlowCross" className="w-8 h-8 rounded-md" />
             <span className="text-xl font-bold">
               <span className="neon-text">FlowCross</span>
               <span className="text-muted-foreground ml-1">LLC</span>
@@ -69,17 +90,14 @@ const FlowCrossNavbar = () => {
 
           <div className="hidden md:flex items-center space-x-8">
             <a href="#features" className="text-foreground hover:text-primary transition-colors duration-200">Features</a>
-            <a href="#servers" className="text-foreground hover:text-primary transition-colors duration-200">Servers</a>
-            <a href="#community" className="text-foreground hover:text-primary transition-colors duration-200">Community</a>
+            <a href="#stats-section" className="text-foreground hover:text-primary transition-colors duration-200">Stats</a>
+            <button onClick={() => window.open('https://discord.gg/flowcross', '_blank')} className="text-foreground hover:text-primary transition-colors duration-200">Community</button>
             <a href="#pricing" className="text-foreground hover:text-primary transition-colors duration-200">Pricing</a>
           </div>
 
           <div className="hidden md:flex items-center space-x-4">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-              <input type="text" placeholder="Search..." className="pl-10 pr-4 py-2 bg-card border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200 glass-effect" />
-            </div>
-            <Button variant="glow" size="sm"><Download className="w-4 h-4 mr-2" />Download</Button>
+            <SearchComponent />
+            <Button variant="outline" size="sm" className="bg-white text-black hover:bg-white/90"><Download className="w-4 h-4 mr-2" />Download</Button>
             
             {isLoggedIn ? (
               <div className="flex items-center space-x-2">
@@ -100,9 +118,20 @@ const FlowCrossNavbar = () => {
                     <DialogTitle>Добро пожаловать в FlowCross</DialogTitle>
                   </DialogHeader>
                   <div className="flex gap-6">
-                    {/* Features Block */}
-                    <div className="flex-1">
-                      <FeaturesBlock />
+                    {/* Registration and Features */}
+                    <div className="flex-1 space-y-6">
+                      <RegistrationSystem 
+                        onRegistrationComplete={(userData) => {
+                          toast({
+                            title: "Регистрация завершена!",
+                            description: `Теперь вы можете войти как ${userData.username}`
+                          });
+                        }}
+                      />
+                      <div className="glass-effect rounded-xl p-4">
+                        <img src={flowcrossLogo} alt="FlowCross" className="w-16 h-16 mx-auto mb-4 rounded-xl" />
+                        <FeaturesBlock />
+                      </div>
                     </div>
                     
                     {/* Login Form with Phone Verification */}
@@ -117,6 +146,7 @@ const FlowCrossNavbar = () => {
                               value={loginData.username} 
                               onChange={(e) => setLoginData({...loginData, username: e.target.value})} 
                               placeholder="Введите имя пользователя" 
+                              className="glass-effect"
                             />
                           </div>
                           <div>
@@ -127,11 +157,12 @@ const FlowCrossNavbar = () => {
                               value={loginData.password} 
                               onChange={(e) => setLoginData({...loginData, password: e.target.value})} 
                               placeholder="Введите пароль" 
+                              className="glass-effect"
                             />
                           </div>
-                          <Button type="submit" variant="default" className="w-full">Войти</Button>
+                          <Button type="submit" variant="default" className="w-full bg-white text-black hover:bg-white/90">Войти</Button>
                           <div className="text-center text-sm text-muted-foreground">
-                            Нет аккаунта? Используйте кнопку "Регистрация" слева
+                            Сначала зарегистрируйтесь слева
                           </div>
                         </form>
                       </div>
@@ -161,11 +192,11 @@ const FlowCrossNavbar = () => {
           <div className="md:hidden bg-card border-t border-border glass-effect">
             <div className="flex flex-col space-y-4 p-4">
               <a href="#features" className="text-foreground hover:text-primary">Features</a>
-              <a href="#servers" className="text-foreground hover:text-primary">Servers</a>
-              <a href="#community" className="text-foreground hover:text-primary">Community</a>
+              <a href="#stats-section" className="text-foreground hover:text-primary">Stats</a>
+              <button onClick={() => window.open('https://discord.gg/flowcross', '_blank')} className="text-foreground hover:text-primary text-left">Community</button>
               <a href="#pricing" className="text-foreground hover:text-primary">Pricing</a>
               <div className="flex space-x-2 pt-4">
-                <Button variant="glow" size="sm" className="flex-1">Download</Button>
+                <Button variant="outline" size="sm" className="flex-1 bg-white text-black">Download</Button>
                 {!isLoggedIn && <Button variant="outline" size="sm" className="flex-1" onClick={() => setIsLoginOpen(true)}>Log In</Button>}
               </div>
             </div>
