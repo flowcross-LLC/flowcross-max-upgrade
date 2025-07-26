@@ -145,32 +145,32 @@ export function AccountSidebar({ currentSection, onSectionChange, onLogout, user
 
   return (
     <Sidebar
-      className={`${state === "collapsed" ? "w-16" : "w-64"} transition-all duration-300 border-r bg-card/50 backdrop-blur`}
+      className={`${state === "collapsed" ? "w-16" : "w-64"} transition-all duration-300 border-r bg-sidebar backdrop-blur border-sidebar-border`}
       collapsible="icon"
     >
-      <SidebarTrigger className="m-2 self-end hover:bg-primary/10 transition-colors" />
+      <SidebarTrigger className="m-2 self-end hover:bg-sidebar-accent transition-colors text-sidebar-foreground" />
       
       <SidebarContent className="px-2">
         {/* User Profile Header */}
         {(!state || state !== "collapsed") && (
-          <div className="p-4 mb-4 bg-gradient-to-r from-primary/10 to-accent/10 rounded-lg border">
+          <div className="p-4 mb-4 bg-gradient-to-r from-sidebar-accent/20 to-sidebar-primary/10 rounded-lg border border-sidebar-border">
             <div className="flex items-center gap-3 mb-3">
-              <Avatar className="w-12 h-12 border-2 border-primary/20">
-                <AvatarImage src={userData.avatar} />
-                <AvatarFallback className="bg-primary/10 text-primary font-bold">
-                  {userData.username.charAt(0).toUpperCase()}
-                </AvatarFallback>
-              </Avatar>
+               <Avatar className="w-12 h-12 border-2 border-sidebar-primary/30">
+                 <AvatarImage src={userData.avatar} />
+                 <AvatarFallback className="bg-sidebar-primary/20 text-sidebar-primary font-bold">
+                   {userData.username.charAt(0).toUpperCase()}
+                 </AvatarFallback>
+               </Avatar>
               <div className="flex-1 min-w-0">
-                <h3 className="font-semibold text-sm truncate">{userData.username}</h3>
-                <p className="text-xs text-muted-foreground truncate">
-                  {userData.email || "Без email"}
-                </p>
+                 <h3 className="font-semibold text-sm truncate text-sidebar-foreground">{userData.username}</h3>
+                 <p className="text-xs text-sidebar-foreground/70 truncate">
+                   {userData.email || "Без email"}
+                 </p>
                 <div className="flex items-center gap-1 mt-1">
                   {userData.verified && (
-                    <Badge variant="default" className="text-xs py-0 px-2">
-                      Подтвержден
-                    </Badge>
+                     <Badge variant="default" className="text-xs py-0 px-2 bg-sidebar-primary text-sidebar-primary-foreground">
+                       Подтвержден
+                     </Badge>
                   )}
                 </div>
               </div>
@@ -178,23 +178,23 @@ export function AccountSidebar({ currentSection, onSectionChange, onLogout, user
             
             {/* Quick Stats */}
             <div className="space-y-2">
-              <div className="flex justify-between text-xs">
-                <span className="text-muted-foreground">Дневная активность</span>
-                <span className="font-medium">{stats.dailyUsage}ч</span>
-              </div>
+               <div className="flex justify-between text-xs">
+                 <span className="text-sidebar-foreground/70">Дневная активность</span>
+                 <span className="font-medium text-sidebar-foreground">{stats.dailyUsage}ч</span>
+               </div>
               <Progress value={(stats.dailyUsage / 12) * 100} className="h-1" />
               
-              <div className="flex justify-between text-xs">
-                <span className="text-muted-foreground">Недельный прогресс</span>
-                <span className="font-medium">{Math.round(stats.weeklyProgress)}%</span>
-              </div>
+               <div className="flex justify-between text-xs">
+                 <span className="text-sidebar-foreground/70">Недельный прогресс</span>
+                 <span className="font-medium text-sidebar-foreground">{Math.round(stats.weeklyProgress)}%</span>
+               </div>
               <Progress value={stats.weeklyProgress} className="h-1" />
             </div>
           </div>
         )}
         {/* Main Navigation */}
         <SidebarGroup>
-          <SidebarGroupLabel className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+          <SidebarGroupLabel className="text-xs font-semibold text-sidebar-foreground/70 uppercase tracking-wider">
             Аккаунт
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -203,23 +203,23 @@ export function AccountSidebar({ currentSection, onSectionChange, onLogout, user
                 <SidebarMenuItem key={item.id}>
                   <SidebarMenuButton 
                     onClick={() => handleSectionClick(item.id)}
-                    className={`group cursor-pointer relative transition-all duration-200 hover:scale-[1.02] ${
-                      isActive(item.id) 
-                        ? "bg-primary/15 text-primary font-medium border-r-2 border-primary shadow-sm" 
-                        : "hover:bg-muted/50 hover:text-foreground"
-                    }`}
+                     className={`group cursor-pointer relative transition-all duration-200 hover:scale-[1.02] ${
+                       isActive(item.id) 
+                         ? "bg-sidebar-primary/20 text-sidebar-primary font-medium border-r-2 border-sidebar-primary shadow-sm" 
+                         : "hover:bg-sidebar-accent hover:text-sidebar-foreground"
+                     }`}
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
                     <div className="flex items-center w-full">
-                      <item.icon className={`h-4 w-4 transition-colors ${
-                        isActive(item.id) ? "text-primary" : "text-muted-foreground group-hover:text-foreground"
-                      }`} />
+                       <item.icon className={`h-4 w-4 transition-colors ${
+                         isActive(item.id) ? "text-sidebar-primary" : "text-sidebar-foreground/60 group-hover:text-sidebar-foreground"
+                       }`} />
                       
                       {(!state || state !== "collapsed") && (
                         <div className="flex-1 flex items-center justify-between ml-3">
                           <div>
                             <div className="flex items-center gap-2">
-                              <span className="text-sm font-medium">{item.title}</span>
+                              <span className="text-sm font-medium text-sidebar-foreground">{item.title}</span>
                               {item.hasNotification && (
                                 <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
                               )}
@@ -229,13 +229,13 @@ export function AccountSidebar({ currentSection, onSectionChange, onLogout, user
                                 </Badge>
                               )}
                             </div>
-                            <div className="text-xs text-muted-foreground mt-0.5">
-                              {item.description}
-                            </div>
+                             <div className="text-xs text-sidebar-foreground/60 mt-0.5">
+                               {item.description}
+                             </div>
                           </div>
-                          <ChevronRight className={`w-3 h-3 text-muted-foreground transition-transform ${
-                            isActive(item.id) ? "rotate-90" : "group-hover:translate-x-1"
-                          }`} />
+                           <ChevronRight className={`w-3 h-3 text-sidebar-foreground/60 transition-transform ${
+                             isActive(item.id) ? "rotate-90" : "group-hover:translate-x-1"
+                           }`} />
                         </div>
                       )}
                       
@@ -253,27 +253,27 @@ export function AccountSidebar({ currentSection, onSectionChange, onLogout, user
         {/* Quick Stats in Collapsed Mode */}
         {state === "collapsed" && (
           <div className="px-2 space-y-3">
-            <div className="text-center">
-              <div className="w-10 h-10 mx-auto bg-primary/10 rounded-lg flex items-center justify-center mb-1">
-                <Activity className="w-5 h-5 text-primary" />
-              </div>
-              <div className="text-xs font-bold text-primary">{stats.dailyUsage}ч</div>
-              <div className="text-xs text-muted-foreground">сегодня</div>
-            </div>
+             <div className="text-center">
+               <div className="w-10 h-10 mx-auto bg-sidebar-primary/20 rounded-lg flex items-center justify-center mb-1">
+                 <Activity className="w-5 h-5 text-sidebar-primary" />
+               </div>
+               <div className="text-xs font-bold text-sidebar-primary">{stats.dailyUsage}ч</div>
+               <div className="text-xs text-sidebar-foreground/70">сегодня</div>
+             </div>
             
-            <div className="text-center">
-              <div className="w-10 h-10 mx-auto bg-green-500/10 rounded-lg flex items-center justify-center mb-1">
-                <Crown className="w-5 h-5 text-green-500" />
-              </div>
-              <div className="text-xs font-bold text-green-500">{stats.loginStreak}</div>
-              <div className="text-xs text-muted-foreground">дней</div>
-            </div>
+             <div className="text-center">
+               <div className="w-10 h-10 mx-auto bg-sidebar-accent rounded-lg flex items-center justify-center mb-1">
+                 <Crown className="w-5 h-5 text-sidebar-accent-foreground" />
+               </div>
+               <div className="text-xs font-bold text-sidebar-accent-foreground">{stats.loginStreak}</div>
+               <div className="text-xs text-sidebar-foreground/70">дней</div>
+             </div>
           </div>
         )}
 
         {/* Support */}
         <SidebarGroup>
-          <SidebarGroupLabel className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+          <SidebarGroupLabel className="text-xs font-semibold text-sidebar-foreground/70 uppercase tracking-wider">
             Поддержка
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -282,26 +282,26 @@ export function AccountSidebar({ currentSection, onSectionChange, onLogout, user
                 <SidebarMenuItem key={item.id}>
                   <SidebarMenuButton 
                     onClick={() => handleSectionClick(item.id)}
-                    className={`group cursor-pointer transition-all duration-200 hover:scale-[1.02] ${
-                      isActive(item.id) 
-                        ? "bg-primary/15 text-primary font-medium" 
-                        : "hover:bg-muted/50"
-                    }`}
+                     className={`group cursor-pointer transition-all duration-200 hover:scale-[1.02] ${
+                       isActive(item.id) 
+                         ? "bg-sidebar-primary/20 text-sidebar-primary font-medium" 
+                         : "hover:bg-sidebar-accent"
+                     }`}
                   >
-                    <item.icon className={`h-4 w-4 transition-colors ${
-                      isActive(item.id) ? "text-primary" : "text-muted-foreground group-hover:text-foreground"
-                    }`} />
+                     <item.icon className={`h-4 w-4 transition-colors ${
+                       isActive(item.id) ? "text-sidebar-primary" : "text-sidebar-foreground/60 group-hover:text-sidebar-foreground"
+                     }`} />
                     {!state || state !== "collapsed" && (
                       <div className="flex-1 flex items-center justify-between">
                         <div>
-                          <div className="text-sm font-medium">{item.title}</div>
-                          <div className="text-xs text-muted-foreground">
-                            {item.description}
-                          </div>
+                           <div className="text-sm font-medium text-sidebar-foreground">{item.title}</div>
+                           <div className="text-xs text-sidebar-foreground/60">
+                             {item.description}
+                           </div>
                         </div>
-                        <ChevronRight className={`w-3 h-3 text-muted-foreground transition-transform ${
-                          isActive(item.id) ? "rotate-90" : "group-hover:translate-x-1"
-                        }`} />
+                         <ChevronRight className={`w-3 h-3 text-sidebar-foreground/60 transition-transform ${
+                           isActive(item.id) ? "rotate-90" : "group-hover:translate-x-1"
+                         }`} />
                       </div>
                     )}
                   </SidebarMenuButton>
@@ -312,11 +312,11 @@ export function AccountSidebar({ currentSection, onSectionChange, onLogout, user
         </SidebarGroup>
 
         {/* Logout */}
-        <div className="mt-auto p-3 border-t bg-muted/20">
+        <div className="mt-auto p-3 border-t border-sidebar-border bg-sidebar-accent/30">
           <Button
             variant="outline"
             onClick={onLogout}
-            className="w-full justify-start hover:bg-destructive/10 hover:text-destructive hover:border-destructive/50 transition-all duration-200"
+            className="w-full justify-start hover:bg-destructive/10 hover:text-destructive hover:border-destructive/50 transition-all duration-200 text-sidebar-foreground border-sidebar-border"
             size={state === "collapsed" ? "sm" : "default"}
           >
             <LogOut className="h-4 w-4" />
@@ -325,9 +325,9 @@ export function AccountSidebar({ currentSection, onSectionChange, onLogout, user
           
           {(!state || state !== "collapsed") && (
             <div className="text-center mt-2">
-              <div className="text-xs text-muted-foreground">
-                Серия входов: <span className="font-semibold text-primary">{stats.loginStreak} дней</span>
-              </div>
+               <div className="text-xs text-sidebar-foreground/70">
+                 Серия входов: <span className="font-semibold text-sidebar-primary">{stats.loginStreak} дней</span>
+               </div>
             </div>
           )}
         </div>
