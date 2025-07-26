@@ -96,7 +96,7 @@ const FlowCrossStats = () => {
   };
 
   return (
-    <section id="stats-section" className="py-20 relative overflow-hidden">
+    <section id="stats-section" className="py-20 relative overflow-hidden section-block mx-4 md:mx-8">
       <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-accent/10"></div>
       
       <div className="container mx-auto px-4">

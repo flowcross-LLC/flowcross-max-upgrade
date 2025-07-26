@@ -61,7 +61,7 @@ const FlowCrossFeatures = () => {
   ];
 
   return (
-    <section id="features" className="py-20 relative overflow-hidden">
+    <section id="features" className="py-20 relative overflow-hidden section-block mx-4 md:mx-8">
       {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-accent/5"></div>
       
@@ -112,7 +112,7 @@ const FlowCrossFeatures = () => {
         </div>
 
         {/* Modular Experience Section */}
-        <div className="bg-card/50 rounded-3xl p-8 md:p-12 glass-effect">
+        <div className="section-block section-block-rounded p-8 md:p-12 glass-effect">
           <div className="text-center mb-12">
             <h3 className="text-3xl md:text-4xl font-bold mb-4">
               Модульный <span className="text-primary">опыт</span>

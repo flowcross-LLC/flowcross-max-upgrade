@@ -60,7 +60,7 @@ const FlowCrossPricing = () => {
   ];
 
   return (
-    <section id="pricing" className="py-20 relative overflow-hidden">
+    <section id="pricing" className="py-20 relative overflow-hidden section-block mx-4 md:mx-8">
       {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent"></div>
       

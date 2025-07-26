@@ -5,11 +5,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Search, Menu, X, Download, LogIn, User, Settings, LogOut } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 import FeaturesBlock from "@/components/FeaturesBlock";
 import PhoneVerification from "@/components/PhoneVerification";
 
 const FlowCrossNavbar = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -81,7 +83,7 @@ const FlowCrossNavbar = () => {
             
             {isLoggedIn ? (
               <div className="flex items-center space-x-2">
-                <Button variant="outline" size="sm" onClick={() => window.location.href = "/account"}>
+                <Button variant="outline" size="sm" onClick={() => navigate("/account")}>
                   <Settings className="w-4 h-4 mr-2" />Аккаунт
                 </Button>
                 <Button variant="outline" size="sm" onClick={handleLogout}>
